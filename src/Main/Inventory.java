@@ -9,11 +9,15 @@ public class Inventory {
     //Item addition/removal
     //add one class type item of a amount to inventory
     public void add(Item item, int a) {
-        if (this.get(item) != null) {
-            this.get(item).amount += a;
+        if (a > 0) {
+            if (this.get(item) != null) {
+                this.get(item).amount += a;
+            } else {
+                item.amount = a;
+                this.inv.add(item);
+            }
         } else {
-            item.amount = a;
-            this.inv.add(item);
+            throw new IllegalArgumentException("Cannot add an amount of 0 or less of items");
         }
     }
     public void add(Item[] item, int[] a) {
@@ -28,7 +32,7 @@ public class Inventory {
     //remove one class type item of a amount from inventory
     public void remove(Item item, int a) {
         if (this.get(item) != null) {
-            int amount = this.get(item).amount;
+            int amount = this.amount(item);
             if (amount > a) {
                 this.get(item).amount -= a;
             } else if (amount == a) {
@@ -80,53 +84,63 @@ public class Inventory {
             Item in = r.getInput(0);
             Item out = r.getOutput(0);
             if (this.has(in)) {
-                if (this.amount(in) >= in.amount) {
+                if (this.amount(in) >= r.getAmountIn(0)) {
                     this.remove(in, r.getAmountIn(0));
                     this.add(out, r.getAmountOut(0));
                 } else {
-                    System.out.println("not enough items");
+                    int amt = r.getInput(0).amount;
+                    if (amt == 1) {
+                        System.out.println("Missing 1 " + r.getInput(0).name);
+                    } else {
+                        System.out.println("Missing " + amt + r.getInput(0).name + "s");
+                    }
                 }
             } else {
-                System.out.println("item does not exist");
+                System.out.println("You don't have any " + r.getInput(0).name + "s");
             }
         } else {
             //Multiple recipe (multiple inputs, multiple outputs)
             //make sure all the items exist in the inventory, regardless of amounts right now
             //this may be redundant
-            boolean check = true;
-            for (Item i : r.input) {
-                if (!this.has(i)) {
-                    check = false;
-                    break;
+            ArrayList<Item> missing = new ArrayList<>();
+            int j = 0;
+            for (int i = 0; i < r.input.length; i++) {
+                if (this.amount(r.input[i]) < r.getAmountIn(i)) {
+                    missing.add(r.input[i]);
+                    missing.get(j).amount = r.getAmountIn(i) - this.amount(r.input[i]);
+                    j++;
                 }
             }
             //now check amounts
-            if (check) {
-                boolean amt = true;
-                for (int i = 0; i < r.input.length; i++) {
-                    if (!(this.amount(r.input[i]) >= r.inAmount[i])) {
-                        amt = false;
-                        break;
-                    }
-                }
-                if (amt) {
-                    this.remove(r.input, r.inAmount);
-                    this.add(r.output, r.outAmount);
-                } else {
-                    System.out.println("not enough of item(s)");
-                }
+            if (missing.size() == 0) {
+                this.remove(r.input, r.inAmount);
+                this.add(r.output, r.outAmount);
             } else {
-                System.out.println("missing items in inventory");
+                this.printMissing(missing);
             }
         }
     }
 
-    //shows the current inventory
+    //Display
+    //entire inventory
     public void print() {
-        System.out.println("Your inventory:");
+        if (this.inv.size() != 0) {
+            System.out.println("Your inventory:");
+            System.out.println("Amount x Item");
+            for (Item item : this.inv) {
+                System.out.println(this.amount(item) + " x \t " + this.get(item).name);
+            }
+        } else {
+            System.out.println("Your inventory is empty");
+        }
+        System.out.println();
+    }
+    //missing recipe input(s) dump
+    public void printMissing(ArrayList<Item> miss) {
+        System.out.println("Missing item(s) for recipe:");
         System.out.println("Amount x Item");
-        for (Item item : this.inv) {
-            System.out.println(item.amount + " x \t" + item.name);
+        for (Item i : miss) {
+            System.out.println(i.amount + " x \t " + i.name);
         }
         System.out.println();
     }
