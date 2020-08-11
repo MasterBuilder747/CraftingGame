@@ -11,12 +11,13 @@ public class Main {
 
         Item c = new Item("Carrot");
         Recipe r = new Recipe(b, c, 2, 2);
+        Recipe j = new Recipe(new Item[]{a, b}, new Item[]{c}, new int[]{2, 2}, new int[]{1});
 
         inv.add(a, 4);
         inv.add(b, 4);
         inv.print();
 
-        inv.doRecipe(r);
+        inv.doRecipe(j);
         inv.print();
 
     }
