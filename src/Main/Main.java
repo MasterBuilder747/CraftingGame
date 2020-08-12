@@ -1,29 +1,19 @@
 package Main;
 
-import java.util.ArrayList;
-
 public class Main {
 
     public static void main(String[] args) {
 
-        Inventory inv = new Inventory();
+        Reg.add("apple");
+        Reg.add("banana");
+        Reg.add("carrot");
+        Reg.add("dog");
 
-        Item a = new Item("apple");
-        Item b = new Item("banana");
-        Item c = new Item("carrot");
-        Item d = new Item("dog");
+        Inventory i = new Inventory();
 
-        Recipe r = new Recipe(b, c, 2, 2);
-        Recipe j = new Recipe(new Item[]{a, b, c}, new Item[]{d}, new int[]{2, 2, 2}, new int[]{1});
-
-        inv.add(a, 2);
-        //inv.add(b, 0);
-        inv.add(c, 1);
-        inv.print();
-
-        //inv.doRecipe(r);
-        inv.doRecipe(j);
-        inv.print();
+        i.add(new String[]{"apple", "banana"}, new int[]{1, 1});
+        i.remove(new String[]{"banana", "apple"}, new int[]{2, 1});
+        i.print();
 
     }
 
