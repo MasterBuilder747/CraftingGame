@@ -45,15 +45,17 @@ public class Inventory {
                 } else if (amount == a) {
                     this.inv.remove(item);
                 } else {
-                    System.out.println("You are removing more items than what is in your inventory.");
+                    System.out.println("You are removing more " + s +"s than what is in your inventory.");
                 }
             } else {
-                System.out.println("Item does not exist in inventory.");
+                System.out.println("You have no " + s + "s.");
             }
         } else {
             throw new IllegalArgumentException("Invalid item name(s)");
         }
     }
+    //NOTE: this will remove from the inventory if it can.
+    //This means if one doesn't work but the other does, it will still remove the one that does work
     public void remove(String[] item, int[] a) {
         if (item.length == a.length) {
             for (int i = 0; i < item.length; i++) {
@@ -91,22 +93,22 @@ public class Inventory {
     public void doRecipe(Recipe r) {
         if (r.input.length == 1 && r.output.length == 1) {
             //Singular recipe (1 input, 1 output)
-            Item in = r.getInput(0);
-            Item out = r.getOutput(0);
-            if (this.has(in)) {
-                if (this.amount(in) >= r.getAmountIn(0)) {
-//                    this.remove(in, r.getAmountIn(0));
-//                    this.add(out, r.getAmountOut(0));
+            String in = r.input[0];
+            String out = r.output[0];
+            if (this.has(Reg.get(in))) {
+                if (this.amount(Reg.get(in)) >= r.inAmount[0]) {
+                    this.remove(in, r.inAmount[0]);
+                    this.add(out, r.outAmount[0]);
                 } else {
-                    int amt = r.getInput(0).amount;
+                    int amt = r.inAmount[0];
                     if (amt == 1) {
-                        System.out.println("Missing 1 " + r.getInput(0).name);
+                        System.out.println("Missing 1 " + r.input[0]);
                     } else {
-                        System.out.println("Missing " + amt + r.getInput(0).name + "s");
+                        System.out.println("Missing " + amt + r.input[0] + "s");
                     }
                 }
             } else {
-                System.out.println("You don't have any " + r.getInput(0).name + "s");
+                System.out.println("You don't have any " + r.input[0] + "s");
             }
         } else {
             //Multiple recipe (multiple inputs, multiple outputs)
@@ -115,11 +117,11 @@ public class Inventory {
             ArrayList<Item> missing = new ArrayList<>();
             int j = 0;
             for (int i = 0; i < r.input.length; i++) {
-//                if (this.amount(r.input[i]) < r.getAmountIn(i)) {
-//                    missing.add(r.input[i]);
-//                    missing.get(j).amount = r.getAmountIn(i) - this.amount(r.input[i]);
-//                    j++;
-//                }
+                if (this.amount(Reg.get(r.input[i])) < r.inAmount[i]) {
+                    missing.add(Reg.get(r.input[i]));
+                    missing.get(j).amount = r.inAmount[i] - this.amount(Reg.get(r.input[i]));
+                    j++;
+                }
             }
             //now check amounts
             if (missing.size() == 0) {

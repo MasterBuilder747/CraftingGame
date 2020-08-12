@@ -11,8 +11,11 @@ public class Main {
 
         Inventory i = new Inventory();
 
-        i.add(new String[]{"apple", "banana"}, new int[]{1, 1});
-        i.remove(new String[]{"banana", "apple"}, new int[]{2, 1});
+        i.add(new String[]{"apple", "banana"}, new int[]{2, 2});
+        i.print();
+
+        Recipe r = new Recipe("apple * 1, banana * 1", "carrot * 1");
+        i.doRecipe(r);
         i.print();
 
     }
