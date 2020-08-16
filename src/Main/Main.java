@@ -1,9 +1,12 @@
 package Main;
 
+import java.io.IOException;
+
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
+        /*
         Reg.add("apple");
         Reg.add("banana");
         Reg.add("carrot");
@@ -17,6 +20,10 @@ public class Main {
         Recipe r = new Recipe("apple * 1, banana * 1", "carrot * 1");
         i.doRecipe(r);
         i.print();
+        */
+
+        Reg.regElements();
+        Reg.printElements();
 
     }
 

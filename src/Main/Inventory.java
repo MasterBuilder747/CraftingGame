@@ -1,6 +1,7 @@
 package Main;
 
 import java.util.ArrayList;
+import Items.Item;
 
 public class Inventory {
 

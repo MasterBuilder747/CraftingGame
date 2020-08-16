@@ -1,10 +1,10 @@
-package Main;
+package Items;
 
 public class Item {
 
-    String name;
+    public String name;
     //double volume; //will implement this later as the max total items in an inventory
-    int amount;
+    public int amount;
 
     public Item(String name) {
         this.name = name;

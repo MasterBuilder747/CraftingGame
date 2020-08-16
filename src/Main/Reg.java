@@ -1,6 +1,12 @@
 package Main;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
+
+import Items.*;
+import Utilities.ElementReader;
 
 public class Reg {
 
@@ -9,6 +15,7 @@ public class Reg {
     //allows for quick finding of items
     //only one registry exists, so all of its methods are static
     private static final ArrayList<Item> dict = new ArrayList<>();
+    private static ArrayList<Element> elements = new ArrayList<>();
 
     public static void add(String s) {
         dict.add(new Item(s));
@@ -26,4 +33,18 @@ public class Reg {
         return null;
     }
 
+    public static void regElements() throws IOException {
+        FileReader fr = new FileReader("/Users/Joseph/Documents/IdeaProjects/CraftingGame/src/elements.txt");
+        BufferedReader br = new BufferedReader(fr);
+
+        elements = ElementReader.readFile(br);
+    }
+
+    public static void printElements() {
+        if (elements.size() > 0) {
+            for (Element e : elements) {
+                e.print();
+            }
+        }
+    }
 }
