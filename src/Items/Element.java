@@ -4,7 +4,7 @@ public class Element extends Item {
 
     //PT general classification
     int number;
-    String symbol;
+    public String symbol;
     //String name; //inherited by item
     double weight;
 

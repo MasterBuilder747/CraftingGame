@@ -29,8 +29,26 @@ public class Reg {
                 return i;
             }
         }
+        for (Element e : elements) {
+            if (e.name.matches(s)) {
+                return e;
+            }
+        }
         //does not exist
         return null;
+    }
+
+    //given the element symbol, return the name
+    public static String getElement(String s) {
+        if (elements.size() > 0) {
+            for (Element e : elements) {
+                if (e.symbol.matches(s)) {
+                    return e.name;
+                }
+            }
+        }
+        //does not exist
+        return "";
     }
 
     public static void regElements() throws IOException {
