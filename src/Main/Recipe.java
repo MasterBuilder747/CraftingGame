@@ -23,7 +23,7 @@ public class Recipe {
             for (String s : in1) {
                 String s1 = s.replace(" ", "");
                 if (s.contains("*")) {
-                    if (Reg.get(s1.substring(0, s1.indexOf("*"))) != null) {
+                    if (Reg.getItem(s1.substring(0, s1.indexOf("*"))) != null) {
                         this.input[j] = s1.substring(0, s1.indexOf("*"));
                         this.inAmount[j] = Integer.parseInt(s1.substring(s1.indexOf("*") + 1));
                         j++;
@@ -31,7 +31,7 @@ public class Recipe {
                         throw new IllegalArgumentException("Item does not exist");
                     }
                 } else {
-                    if (Reg.get(s1) != null) {
+                    if (Reg.getItem(s1) != null) {
                         this.input[j] = s1;
                         j++;
                     } else {
@@ -43,7 +43,7 @@ public class Recipe {
             for (String s : out1) {
                 String s1 = s.replace(" ", "");
                 if (s.contains("*")) {
-                    if (Reg.get(s1.substring(0, s1.indexOf("*"))) != null) {
+                    if (Reg.getItem(s1.substring(0, s1.indexOf("*"))) != null) {
                         this.output[j] = s1.substring(0, s1.indexOf("*"));
                         this.outAmount[j] = Integer.parseInt(s1.substring(s1.indexOf("*") + 1));
                         j++;
@@ -51,7 +51,7 @@ public class Recipe {
                         throw new IllegalArgumentException("Item does not exist");
                     }
                 } else {
-                    if (Reg.get(s1) != null) {
+                    if (Reg.getItem(s1) != null) {
                         this.output[j] = s1;
                         j++;
                     } else {

@@ -10,8 +10,8 @@ public class Inventory {
     //Item addition/removal
     //add one class type item of a amount to inventory
     public void add(String s, int a) {
-        if (Reg.get(s) != null) {
-            Item item = Reg.get(s);
+        if (Reg.getItem(s) != null) {
+            Item item = Reg.getItem(s);
             if (a > 0) {
                 if (this.get(item) != null) {
                     this.get(item).amount += a;
@@ -37,8 +37,8 @@ public class Inventory {
     }
     //remove one class type item of a amount from inventory
     public void remove(String s, int a) {
-        if (Reg.get(s) != null) {
-            Item item = Reg.get(s);
+        if (Reg.getItem(s) != null) {
+            Item item = Reg.getItem(s);
             if (this.has(item)) {
                 int amount = this.amount(item);
                 if (amount > a) {
@@ -96,8 +96,8 @@ public class Inventory {
             //Singular recipe (1 input, 1 output)
             String in = r.input[0];
             String out = r.output[0];
-            if (this.has(Reg.get(in))) {
-                if (this.amount(Reg.get(in)) >= r.inAmount[0]) {
+            if (this.has(Reg.getItem(in))) {
+                if (this.amount(Reg.getItem(in)) >= r.inAmount[0]) {
                     this.remove(in, r.inAmount[0]);
                     this.add(out, r.outAmount[0]);
                 } else {
@@ -118,9 +118,9 @@ public class Inventory {
             ArrayList<Item> missing = new ArrayList<>();
             int j = 0;
             for (int i = 0; i < r.input.length; i++) {
-                if (this.amount(Reg.get(r.input[i])) < r.inAmount[i]) {
-                    missing.add(Reg.get(r.input[i]));
-                    missing.get(j).amount = r.inAmount[i] - this.amount(Reg.get(r.input[i]));
+                if (this.amount(Reg.getItem(r.input[i])) < r.inAmount[i]) {
+                    missing.add(Reg.getItem(r.input[i]));
+                    missing.get(j).amount = r.inAmount[i] - this.amount(Reg.getItem(r.input[i]));
                     j++;
                 }
             }

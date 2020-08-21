@@ -23,7 +23,8 @@ public class Reg {
 
     //returns the item class given the name
     //name given must be exact; it is case-sensitive
-    public static Item get(String s) {
+    //if it is an element, this will override as returning an item
+    public static Item getItem(String s) {
         for (Item i : dict) {
             if (i.name.matches(s)) {
                 return i;
@@ -38,8 +39,19 @@ public class Reg {
         return null;
     }
 
+    //given the element symbol, return the element
+    public static Element getElement(String s) {
+        for (Element e : elements) {
+            if (e.symbol.matches(s)) {
+                return e;
+            }
+        }
+        //does not exist
+        return null;
+    }
+
     //given the element symbol, return the name
-    public static String getElement(String s) {
+    public static String getElementName(String s) {
         if (elements.size() > 0) {
             for (Element e : elements) {
                 if (e.symbol.matches(s)) {
@@ -61,7 +73,7 @@ public class Reg {
     public static void printElements() {
         if (elements.size() > 0) {
             for (Element e : elements) {
-                e.print();
+                System.out.println(e.toString());
             }
         }
     }

@@ -1,5 +1,7 @@
 package Items;
 
+import java.lang.StringBuilder;
+
 public class Element extends Item {
 
     //PT general classification
@@ -44,7 +46,8 @@ public class Element extends Item {
 
     //period, number, symbol, name, weight
     //1: H, Hydrogen, 1, 1.008
-    public void print() {
-        System.out.println(this.period + ": " + this.symbol + ", " + this.name + ", " + this.number + ", " + this.weight);
+    @Override
+    public String toString() {
+        return this.period + ": " + this.symbol + ", " + this.name + ", " + this.number + ", " + this.weight;
     }
 }
