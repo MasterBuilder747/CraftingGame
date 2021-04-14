@@ -11,6 +11,7 @@ public class Recipe {
     //String name;
 
     //String syntax: item * 1, item * 2, item * 3...
+    //need handler for syntax: [H] = Hydrogen
     public Recipe(String in, String out) {
         String[] in1 = in.split(",\\s*");
         String[] out1 = out.split(",\\s*");

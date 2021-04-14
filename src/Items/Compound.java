@@ -3,14 +3,16 @@ package Items;
 import java.util.ArrayList;
 import java.lang.StringBuilder;
 
-public class Compound extends Item {
+public class Compound {
+
+    public String name;
 
     //one or more elements of varying amounts
     //defines the elements that make it up
     private final ArrayList<Element> elements = new ArrayList<>();
 
     public Compound(String name) {
-        super(name);
+        this.name = name;
     }
 
     public void addElements(Element[] ele, int[] amounts) {

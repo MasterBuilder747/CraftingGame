@@ -3,7 +3,7 @@ package Items;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Material<M> extends Item {
+public class Material<M> {
 
     //this will act as the parent of all of the material parts.
     //this is usually implementing an element or some other item
@@ -14,8 +14,7 @@ public class Material<M> extends Item {
     public M mat;
     public ArrayList<Part> parts = new ArrayList<>();
 
-    public Material(String name, M mat) {
-        super(name);
+    public Material(M mat) {
         this.mat = mat;
     }
 
